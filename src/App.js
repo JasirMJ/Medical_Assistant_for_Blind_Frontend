@@ -20,6 +20,11 @@ const be_domain_or_ip = "http://192.168.142.142:8000"
 
 
 const App = () => {
+  const [name, setName] = useState("")
+  useEffect(() => {
+    console.log("App.js useEffect")
+  }, [name])
+
   return (
     <Router>
         <Routes>
@@ -27,7 +32,6 @@ const App = () => {
           <Route exact path="/scan-medicine/:id" element={<MedicinePage/>}/>
           <Route exact path="/home" element={<HomePage/>}/>
           <Route exact path="/" element={<HomePage/>}/>
-
           <Route path="*" element={<NotFound/>}/>
         </Routes>
     </Router>
@@ -41,7 +45,9 @@ function HomePage(){
   useEffect(() => {
     setStatus("loading");
     getmedicines()
+    // console.log("Home page useeffect")
   }, [])
+
   const getmedicines = ()=>{
     setStatus("API calling "+be_domain_or_ip);
 
@@ -107,57 +113,167 @@ function MedicinePage() {
     "special_concerns":""
   });
 
+  const [reminders, setReminders] = useState([]);
+
+  const [count, setCount] = useState(0);
+
   // get medicine id from url
   const id = useParams().id;
-
   useEffect(() => {
     let path = window.location.pathname;
     getmedicine();
     path.includes('scan')&&getvoiceovers();
+    console.log("useeffect")
+    getreminders();
   }, [])
 
   const getmedicine = ()=>{
-    
-
    var config = {
       method: 'get',
       url:be_domain_or_ip + '/medicine/'+id,
       headers: {}
     };
     console.log("URL: "+config.url)
+// debugger
 
-    axios(config)
-    .then(function (response) {
-      console.log(JSON.stringify(response.data));
-      setMedicine(response.data)
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+      axios(config)
+      .then(function (response) {
+        // console.log(JSON.stringify(response.data));
+        setMedicine(response.data)
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    
+    
   }
 
-  const getvoiceovers = ()=>{
-
+  const getvoiceovers = async()=>{
    var config = {
       method: 'get',
       url:be_domain_or_ip + '/qr-code/?medicine_id='+id,
       headers: {}
     };
     console.log("URL: "+config.url)
+    console.log("getvoiceovers calling" )
 
     axios(config)
     .then(function (response) {
-      console.log(JSON.stringify(response.data));
+      // console.log(JSON.stringify(response.data));
     })
     .catch(function (error) {
       console.log(error);
     });
   }
 
+  const getreminders = async()=>{
+    var config = {  
+      method: 'get',
+      url:be_domain_or_ip + '/reminder-records/',
+      headers: {}
+    };
+    console.log("URL: "+config.url)
+    console.log("getreminders calling" )
+
+      axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+        setReminders(response.data)
+        sendReminders(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
+  const sendReminders = async(reminder_data)=>{
+    // take current time
+    var date = new Date();
+
+  let msg = "";
+
+    // reminders.map((reminder)=>{
+      for(let i=0;i<reminder_data.length;i++){
+        msg += "Reminder for "+reminder_data[i].medicine.name +" at ";
+        if(reminder_data[i].morning == true){
+          msg += " morning";
+          console.log("morning added")
+        }
+        if(reminder_data[i].noon == true){
+          msg += " afternoon";
+          console.log("afternoon added")
+        }
+        if(reminder_data[i].evening == true){
+          msg += "  evening";
+          console.log("evening added")
+        }
+        if(reminder_data[i].night == true){
+          msg += " night";
+          console.log("night added")
+        }
+      }
+
+    var time = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+
+    // if (date.getHours() > 0 && date.getHours() < 12) {
+    //   console.log("morning reminder for medicine")
+    // }
+    // else if (date.getHours() >12 && date.getHours() < 16) {
+    //   console.log("afternoon reminder for medicine")
+    // }
+    // else if (date.getHours() > 16 && date.getHours() < 20) {
+    //   console.log("evening reminder for medicine")
+    // }
+    // else if (date.getHours() > 20 && date.getHours() < 24) {
+    //   console.log("night reminder for medicine")
+    // }
+    console.log("reminder msg: "+msg)
+
+    var FormData = require('form-data');
+    var data = new FormData();
+    data.append('text',msg);
+
+    var config = {
+      method: 'post',
+      url:be_domain_or_ip + '/reminder-alert/',
+      headers: {},
+      data: data
+    };
+    console.log("URL: "+config.url)
+    console.log("sendReminders calling : "+msg )
+
+    if (msg != "") {
+    axios(config)
+    .then(function (response) {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch(function (error) {
+      console.log(error);
+    })
+  }
+
+
+
+
+  }
   return (
     <>
       <div>
         <div className="header1">
+          <div className='reminder'>
+            {reminders.length>0&&reminders.map((reminder) => <span className='reminder-box'>
+            {reminder.medicine.name}
+              <br/>
+              {reminder.morning&&"morning(8AM to 12PM)"}
+              {reminder.noon&&"afternoon(12PM to 4PM)"}
+              {reminder.evening&&"evening(4PM tp 8PM) "}
+              {reminder.night&&"night(8PM to 12AM)"}
+
+            </span>
+            
+          )}
+            
+          </div>
           <Link to="/home">Back</Link>
           </div>
         <div className="data">
