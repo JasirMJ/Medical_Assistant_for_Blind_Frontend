@@ -1,0 +1,148 @@
+body {
+    width: 1200px;
+    margin: 0 auto;
+    background-image: url("https://media.istockphoto.com/vectors/abstract-geometric-medical-cross-shape-medicine-and-science-concept-vector-id911633218?k=20&m=911633218&s=612x612&w=0&h=B79KF2ZS-VbB_9valjf3xkrCrdKLCP0cyQa7G7YWWd8=");
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+
+.header {
+    height: 200px;
+    /* background-color: rgb(218, 218, 218); */
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    color: rgb(19, 5, 71);
+    text-decoration: underline;
+    font-size: 30px;
+}
+
+.container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: auto;
+}
+
+.content {
+    display: flex;
+    width: 70%;
+    height: 50px;
+    /* background-color: rgb(99, 58, 249); */
+    margin: 3px;
+    padding: 10px;
+    font-size: 30px;
+    font-family: 'times new roman';
+    /* font-style: italic; */
+}
+
+.text1 {
+    display: flex;
+    flex: 4;
+    background-color: rgb(242, 243, 245);
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+    color: rgb(19, 77, 132);
+
+}
+
+.text2 {
+    display: flex;
+    flex: 1;
+    background-color: rgb(19, 77, 132);
+    border-radius: 50px;
+    align-items: center;
+    justify-content: center;
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+}
+
+.text2:hover {
+    color: rgb(19, 77, 132);
+    background-color: rgb(255, 255, 255);
+
+}
+
+a {
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+}
+
+.data {
+    display: flex;
+    width: 100%;
+    /* background-color: blue; */
+    justify-content: center;
+    height: 100%;
+    align-items: center;
+}
+
+form {
+    width: 546px;
+    margin-top: 60px;
+    background-image: url("https://img.wallpapersafari.com/tablet/768/1024/66/0/UI9tRu.jpg");
+    background-color: royalblue;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 550px;
+    font-size: 40px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    align-content: space-around;
+    flex-direction: column;
+    border-radius: 20px;
+    color: white;
+    box-shadow: 2px 2px 2px 5px rgba(245, 241, 241, 0.5);
+}
+
+
+
+.btn {
+    font-size: 30px;
+    margin: 5px;
+    background-color: white;
+    color: rgb(19, 77, 132);
+    width: 150px;
+    margin-top: 100px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: rgb(19, 77, 132);
+    color: white;
+}
+
+.header1 {
+
+    width: 100%;
+    /* background-color: rgb(19, 77, 132); */
+    display: flex;
+    justify-content: flex-end;
+}
+
+.header1 a {
+    text-decoration: none;
+    color: white;
+    font-size: 30px;
+    margin-right: 10px;
+    background-color: rgb(19, 77, 132);
+    width: 130px;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    border-radius: 20px;
+    margin-top: 10px;
+}
+
+.header1 a:hover {
+    background-color: rgb(255, 255, 255);
+    color: rgb(19, 77, 132);
+}
