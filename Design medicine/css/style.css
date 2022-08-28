@@ -1,9 +1,10 @@
 body {
-    width: 1200px;
+    width: 100%;
     margin: 0 auto;
     background-image: url("https://media.istockphoto.com/vectors/abstract-geometric-medical-cross-shape-medicine-and-science-concept-vector-id911633218?k=20&m=911633218&s=612x612&w=0&h=B79KF2ZS-VbB_9valjf3xkrCrdKLCP0cyQa7G7YWWd8=");
     background-repeat: no-repeat;
     background-size: cover;
+    display: flex;
 
 }
 
@@ -19,12 +20,13 @@ body {
 }
 
 .container {
+    flex: 1;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    height: auto;
+    /* height: auto; */
 }
 
 .content {
@@ -82,14 +84,14 @@ a {
 }
 
 form {
-    width: 546px;
+    width: 70%;
     margin-top: 60px;
     background-image: url("https://img.wallpapersafari.com/tablet/768/1024/66/0/UI9tRu.jpg");
     background-color: royalblue;
     background-repeat: no-repeat;
     background-size: cover;
     height: 550px;
-    font-size: 40px;
+    /* font-size: 40px; */
     align-items: center;
     display: flex;
     justify-content: center;
