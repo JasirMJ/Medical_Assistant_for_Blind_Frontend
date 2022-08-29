@@ -15,8 +15,10 @@ import axios from 'axios';
 
 import QRCode from "react-qr-code";
 
-const fe_domain_or_ip = "http://192.168.142.142:3000"
-const be_domain_or_ip = "http://192.168.142.142:8000"
+const localip = "192.168.142.142"
+
+const fe_domain_or_ip = "http://"+localip+":3000"
+const be_domain_or_ip = "http://"+localip+":8000"
 
 
 const App = () => {
