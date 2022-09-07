@@ -90,7 +90,7 @@ function HomePage(){
         <div className="text1">
           {medicine.name}
         </div>
-        <Link  className="text2" to="/medicine/1">
+        <Link  className="text2" to={'/medicine/'+medicine.id}>
           view
         </Link>
 
@@ -285,7 +285,7 @@ function MedicinePage() {
             <span htmlFor="name"> Side effects: {medicine.side_effects}</span><br />
             <span htmlFor="name"> Interactions: {medicine.interaction_with_other_medicines}</span><br />
             <span htmlFor="name"> Special Concerns: {medicine.special_concerns}</span><br />
-            <QRCode value={fe_domain_or_ip + "/scan-medicine/"+id} />
+            <QRCode style={{height:'300px'}} value={fe_domain_or_ip + "/scan-medicine/"+id} />
           </form>
 
 
