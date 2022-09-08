@@ -15,7 +15,7 @@ import axios from 'axios';
 
 import QRCode from "react-qr-code";
 
-const localip = "192.168.142.142"
+const localip = "192.168.146.142"
 
 const fe_domain_or_ip = "http://"+localip+":3000"
 const be_domain_or_ip = "http://"+localip+":8000"
@@ -83,16 +83,25 @@ function HomePage(){
     <div className="container">
     <br/>
       <small>status : {status}</small>
-      {medicines.map((medicine) =>  <div className="content">
+      {medicines.map((medicine,index) =>  <div className="content">
       <div  className="text2">
-        <QRCode size={50} value={fe_domain_or_ip + "/scan-medicine/"+medicine.id} />
+        
+        {/* <QRCode size={50} value={fe_domain_or_ip + "/medicine/"+medicine.id} /> */}
+        {index%2==0&&<QRCode size={50} value={be_domain_or_ip + "/medicine/"+medicine.id} />}
+        {index%2!=0&&<Link  className="text2" to={'/medicine/'+medicine.id}>
+          view
+        </Link>}
+        {/* <QRCode size={50} value={"http://192.168.146.142:8000/medicine/1"} /> */}
+        {/* http://192.168.146.142:8000/medicine/1 */}
+        {/* http://192.168.146.142:8000/medicine/1 */}
         </div>  
         <div className="text1">
           {medicine.name}
         </div>
-        <Link  className="text2" to={'/medicine/'+medicine.id}>
+        {index%2==0&&<Link  className="text2" to={'/medicine/'+medicine.id}>
           view
-        </Link>
+        </Link>}
+        {index%2!=0&&<QRCode size={50} value={be_domain_or_ip + "/medicine/"+medicine.id} />}
 
       </div>
       )}
@@ -285,7 +294,10 @@ function MedicinePage() {
             <span htmlFor="name"> Side effects: {medicine.side_effects}</span><br />
             <span htmlFor="name"> Interactions: {medicine.interaction_with_other_medicines}</span><br />
             <span htmlFor="name"> Special Concerns: {medicine.special_concerns}</span><br />
-            <QRCode style={{height:'300px'}} value={fe_domain_or_ip + "/scan-medicine/"+id} />
+            {/* <QRCode style={{height:'300px'}} value={fe_domain_or_ip + "/scan-medicine/"+id} /> */}
+            {/* <QRCode style={{height:'300px'}} value={be_domain_or_ip + "/medicine/"+id} /> */}
+        <QRCode size={100} value={be_domain_or_ip + "/medicine/"+medicine.id} />
+
           </form>
 
 
